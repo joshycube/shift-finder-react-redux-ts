@@ -1,0 +1,7 @@
+version: '3.3'
+services:
+  webapp:
+    container_name: 'shiftfinder'
+    build: ./../
+    ports:
+      - '8080:80'
