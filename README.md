@@ -47,3 +47,4 @@ Tested by Cypress.
 
 - better UI
 - better TS e.g return types
+- can work with Sagas if a more complex scenario demands it
