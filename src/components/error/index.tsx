@@ -6,7 +6,7 @@ interface Props {
   error: RequestError;
 }
 
-function ErrorComponent({ error }: Props) {
+function ErrorComponent({ error }: Props): JSX.Element {
   return <div>{error.data}</div>;
 }
 

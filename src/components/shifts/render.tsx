@@ -9,7 +9,7 @@ interface Props {
   shifts: Shift[];
 }
 
-function ShiftsRender({ shifts }: Props) {
+function ShiftsRender({ shifts }: Props): JSX.Element {
   return (
     <Styles.Wrapper>
       {shifts &&
