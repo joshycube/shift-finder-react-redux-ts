@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { shiftsRequest } from "../../services/shifts";
 import * as shiftsActions from "../../store/shifts/actions";
+import finalError from "../../utils/finalError";
 
 function useFetchShifts() {
   const dispatch = useDispatch();
@@ -20,31 +21,7 @@ function useFetchShifts() {
           );
         }
       } catch (error) {
-        let finalError = {
-          data: "",
-          status: 0,
-          header: "",
-        };
-        if (error.response) {
-          finalError = {
-            data: error.message,
-            status: error.response.status,
-            header: error.response.headers,
-          };
-        } else if (error.request) {
-          finalError = {
-            data: error.message,
-            status: 0,
-            header: "",
-          };
-        } else {
-          finalError = {
-            data: error.message as string,
-            status: 0,
-            header: "",
-          };
-        }
-        dispatch(shiftsActions.loadShiftsAsync.failure(finalError));
+        dispatch(shiftsActions.loadShiftsAsync.failure(finalError(error)));
       }
     };
 
