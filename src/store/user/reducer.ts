@@ -3,7 +3,7 @@ import { createReducer } from "typesafe-actions";
 
 import * as actions from "./actions";
 import { RequestError } from "../../types/error";
-import { User, UserAction, UserState } from "../../types/users";
+import { User, UserAction } from "../../types/users";
 
 const shiftsReducer = combineReducers({
   isLoadingUser: createReducer(false as boolean)
@@ -16,11 +16,12 @@ const shiftsReducer = combineReducers({
     .handleAction([actions.loadUserAsync.request], () => false)
     .handleAction(
       [actions.loadUserAsync.failure],
-      (state: UserState, action: UserAction) => action.payload
+      (state: { loadingUserError: RequestError }, action: UserAction) =>
+        action.payload
     ),
   userData: createReducer({} as User).handleAction(
     [actions.loadUserAsync.success],
-    (state: UserState, action: UserAction) => action.payload
+    (state: { userData: User }, action: UserAction) => action.payload
   ),
 });
 

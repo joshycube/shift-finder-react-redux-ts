@@ -3,7 +3,7 @@ import { createReducer } from "typesafe-actions";
 
 import * as actions from "./actions";
 import { RequestError } from "../../types/error";
-import { Shift, ShiftAction, ShiftsState } from "../../types/shifts";
+import { Shift, ShiftAction } from "../../types/shifts";
 
 const shiftsReducer = combineReducers({
   isLoadingShifts: createReducer(false as boolean)
@@ -16,11 +16,12 @@ const shiftsReducer = combineReducers({
     .handleAction([actions.loadShiftsAsync.request], () => false)
     .handleAction(
       [actions.loadShiftsAsync.failure],
-      (state: ShiftsState, action: ShiftAction) => action.payload
+      (state: { loadingShiftsError: RequestError }, action: ShiftAction) =>
+        action.payload
     ),
   shiftsData: createReducer([] as Shift[]).handleAction(
     [actions.loadShiftsAsync.success],
-    (state: ShiftsState, action: ShiftAction) => action.payload
+    (state: Shift[], action: ShiftAction) => action.payload
   ),
 });
 
