@@ -4,8 +4,7 @@ import isAfter from "date-fns/isAfter";
 import { Store } from "../types/store";
 import { userSelector } from "./users.selectors";
 
-const shiftsData = (state: Store) =>
-  state.shifts && state.shifts && state.shifts.shiftsData;
+const shiftsData = (state: Store) => state.shifts && state.shifts.shiftsData;
 
 export const shiftsAvailableSelector = createSelector(
   shiftsData,
