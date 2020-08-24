@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 
 import userRequest from "../services/user";
 import * as userActions from "../store/user/actions";
+import finalError from "../utils/finalError";
 
 function useUser() {
   const dispatch = useDispatch();
@@ -17,31 +18,7 @@ function useUser() {
           dispatch(userActions.loadUserAsync.success(userResponse.data));
         }
       } catch (error) {
-        let finalError = {
-          data: "",
-          status: 0,
-          header: "",
-        };
-        if (error.response) {
-          finalError = {
-            data: error.message,
-            status: error.response.status,
-            header: error.response.headers,
-          };
-        } else if (error.request) {
-          finalError = {
-            data: error.message,
-            status: 0,
-            header: "",
-          };
-        } else {
-          finalError = {
-            data: error.message as string,
-            status: 0,
-            header: "",
-          };
-        }
-        dispatch(userActions.loadUserAsync.failure(finalError));
+        dispatch(userActions.loadUserAsync.failure(finalError(error)));
       }
     };
 
